@@ -1,2 +1,37 @@
 ---
 # tasks file for test.test
+
+- name: check update availability
+  win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
+    state: searched
+  register: register_update
+
+- name: Install only particular updates based on the KB numbers
+  win_updates:
+    category_name:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
+    state: installed
+    whitelist:
+      - "{{ register_update | json_query('filtered_updates.[*][0]') | map(attribute='title') | list }}"
+
+- debug:
+    msg: "{{ register_update | json_query('filtered_updates.[*][0]') | map(attribute='title') | list }}"
+
+- name: check update availability
+  win_choco_update_info:
+  register: choco_update
+
+- name: include Update Tasks
+  include_tasks: choco/update.yml
+  loop: '{{ choco_update.packages|dict2items }}'
+  loop_control:
+    loop_var: loop_choco
+
+- win_reboot_info:
+  register: register_reboot

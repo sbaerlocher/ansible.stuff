@@ -44,3 +44,6 @@
   tags:
     - configuration
     - packages
+
+- debug:
+    msg: '{{ register_reboot }}'

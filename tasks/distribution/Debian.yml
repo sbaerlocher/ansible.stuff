@@ -1,0 +1,16 @@
+---
+# tasks file for test.test
+
+- name: check update availability
+  become: true
+  apt_update_info:
+  register: apt_update
+
+- name: include Update Tasks
+  include_tasks: apt/update.yml
+  loop: '{{ apt_update.packages|dict2items }}'
+  loop_control:
+    loop_var: loop_apt
+
+- reboot_info:
+  register: register_reboot

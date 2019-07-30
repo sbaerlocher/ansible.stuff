@@ -1,0 +1,16 @@
+---
+# tasks file for test.test
+
+- name: check update availability
+  become: true
+  yum_update_info:
+  register: yum_update
+
+- name: include Update Tasks
+  include_tasks: yum/update.yml
+  loop: '{{ yum_update.packages|dict2items }}'
+  loop_control:
+    loop_var: loop_yum
+
+- reboot_info:
+  register: register_reboot

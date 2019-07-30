@@ -1,0 +1,10 @@
+---
+- name: 'update {{ key }} from {{ current }} to {{ available }}'
+  win_chocolatey:
+    name: '{{ key }}'
+    version: '{{ available }}'
+    state: 'latest'
+  vars:
+    available: '{{ loop_choco.value.available }}'
+    current: '{{ loop_choco.value.current }}'
+    key: '{{ loop_choco.key }}'

@@ -1,0 +1,11 @@
+---
+- name: 'update {{ key }} from {{ current }} to {{ available }}'
+  become: true
+  yum:
+    name: '{{ key }}-{{ available }}'
+    state: latest
+    update_only: true
+  vars:
+    available: '{{ loop_yum.value.available }}'
+    current: '{{ loop_yum.value.current }}'
+    key: '{{ loop_yum.key }}'
