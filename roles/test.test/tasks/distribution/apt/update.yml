@@ -1,0 +1,9 @@
+---
+- name: 'update {{ loop_apt.key }} from {{ current }} to {{ available }}'
+  become: true
+  apt:
+    name: '{{ key }}={{ available }}'
+  vars:
+    available: '{{ loop_apt.value.available }}'
+    current: '{{ loop_apt.value.current }}'
+    key: '{{ loop_apt.key }}'
