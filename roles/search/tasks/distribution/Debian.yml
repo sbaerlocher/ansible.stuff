@@ -1,0 +1,7 @@
+---
+# tasks file for test.test
+
+- name: 'availability updates Debian'
+  become: true
+  apt_update_info:
+  register: register_update

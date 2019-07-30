@@ -1,0 +1,5 @@
+---
+- name: 'notification Playbooks'
+  hosts: all
+  roles:
+    - patchone.collection.notification

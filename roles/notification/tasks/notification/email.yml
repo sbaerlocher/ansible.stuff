@@ -1,0 +1,15 @@
+---
+- name: Sending an e-mail using Gmail SMTP servers
+  mail:
+    host: smtp.sparkpostmail.com
+    port: 587
+    username: SMTP_Injection
+    password: 12a1fc4a4efece76ed4bab0d55140a696e9b02eb
+    from: ansible@sbaerlo.ch
+    to: s.baerlocher@sbaerlocher.ch
+    subject: Ansible-report
+    body: |
+      {% for key, value in register_update.packages.items() %}
+      {{ key }} have Update from {{ value.current }} to {{ value.available }}
+      {% endfor %}
+  delegate_to: localhost

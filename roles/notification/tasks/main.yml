@@ -1,0 +1,7 @@
+---
+- name: include notification tasks
+  include_tasks: 'notification/{{ loop_notification }}.yml'
+  loop_control:
+    loop_var: loop_notification
+  loop:
+    - 'email'

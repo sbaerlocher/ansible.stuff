@@ -1,0 +1,9 @@
+---
+- name: 'Search Playbooks'
+  hosts: all
+  tasks:
+    - name: 'include Role'
+      include_role:
+        name: patchone.collection.search
+    - name: Include a play after another play
+      include: notification.yml

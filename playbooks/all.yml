@@ -1,0 +1,6 @@
+---
+# ansible-playbook -i hosts playbook.yml
+
+- name: 'all Playbooks'
+  hosts: all
+  tasks:
